@@ -1,39 +1,24 @@
-var HTTP_CODE_OK = 200,
-		HTTP_CODE_CREATED = 201,
-		HTTP_CODE_BAD_REQUEST = 401;
 var port = 3000;
 var ipAddress = '127.0.0.1';
-var CONTENT_TYPE_TEXT = 'text/plain',
-		CONTENT_TYPE_JSON = 'application/json';
 
-var routes = [{ 
-			path: '/',
-			handle: root
-		}];
+var Http = require('http'),
+		HttpCode = require('./http_codes.js').HttpCodes,
+		ContentType = require('./contentType.js').ContentTypes,
+		Routes = require('./routes.js').Routes;
 
-var http = require('http');
-http.createServer(function (req, res) {
-	for (var i = 0; i < routes.length; i++) {
-		if (routes[i].path === req.url) {
-			console.log(routes[i]);
-			routes[i].handle(req, res);
+Http.createServer(function (req, res) {
+	for (var i = 0; i < Routes.length; i++) {
+		if (Routes[i].path === req.url) {
+			console.log(Routes[i]);
+			Routes[i].handle(req, res);
 			break;
 		} else {
-			if (i === routes.length - 1) {
-				res.writeHead(HTTP_CODE_BAD_REQUEST, {
-					'Content-Type': CONTENT_TYPE_TEXT
+			if (i === Routes.length - 1) {
+				res.writeHead(HttpCode.BadRequest, {
+					'Content-Type': ContentType.text
 				});
-				res.end('Unknown URL, try again stupid.');
+				res.end('Unknown URL, try again.');
 			}
 		}
 	}
 }).listen(port, ipAddress);
-
-var root = function (req, res) {
-	if (req.method === 'GET') {
-		res.writeHead(HTTP_CODE_OK, {
-			'Content-Type': CONTENT_TYPE_TEXT
-		});
-		res.end('Huzzah!');
-	}
-}
