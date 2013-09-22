@@ -1,0 +1,15 @@
+{
+	"name": "simple_express",
+	"preferGlobal": false,
+	"private": true,
+	"version": "0.0.1",
+	"author": "Alexander Kahoun <alex.kahoun@outlook.com>",
+	"description": "Simple kata for express.js",
+	"dependencies": {
+		"express": "latest"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=0.10"
+	}
+}
