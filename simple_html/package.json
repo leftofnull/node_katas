@@ -1,0 +1,21 @@
+{
+    "name": "simple_html",
+    "version": "0.0.1",
+    "description": "Simple node app to serve *.html pages",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "kata"
+    ],
+    "engines": {
+        "node": "~0.10.0"
+    },
+    "author": "Alexander Kahoun (leftofnull)",
+    "license": "MIT",
+    "dependencies": {
+        "express": "~3.4.8"
+    }
+}
