@@ -11,6 +11,6 @@ require.config({
   }
 });
 
-require(['angular', 'app', 'controllers/todo', 'directives/todoFocus'], function (angular) {
+require(['angular', 'app', 'controllers/todos', 'directives/todoFocus'], function (angular) {
   angular.bootstrap(document, ['todo']);
 });
