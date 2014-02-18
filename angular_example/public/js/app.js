@@ -1,5 +1,12 @@
 'use strict';
 
-define(['angular'], function(angular) {
-    return angular.module('todo', []);
-});
+var todoapp = angular.module('todoapp', ['ngRoute']).config(
+  function ($routeProvider) {
+    $routeProvider.when('/', {
+      controller: 'TodoController'
+    }).when('/:status', {
+      controller: 'TodoController'
+    }).otherwise({
+      redirectTo: '/'
+    });
+  });
