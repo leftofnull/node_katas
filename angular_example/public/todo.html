@@ -19,17 +19,7 @@
       <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(!allChecked)" />
       <label for="toggle-all">Mark all as complete</label>
       <ul id="todo-list">
-        <li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{ completed: todo.completed, editing: todo == editedTodo }">
-          <div>
-            <input class="toggle" type="checkbox" ng-model="todo.completed" />
-            <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
-            <i class="fa fa-trash-o" ng-click="removeTodo(todo)"></i>
-          </div>
-          <form ng-submit="doneEditing(todo)" ng-show="todo == editedTodo" ng-cloak>
-            <input class="edit" ng-trim="false" ng-model="todo.title" ng-blur="cancelEditing(todo)" todo-focus="todo == editedTodo" />
-            <i class="fa fa-plus" ng-click="doneEditing(todo)"></i>
-            <i class="fa fa-times" ng-click="cancelEditing()"></i>
-          </form>
+        <li todo-line ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{ completed: todo.completed, editing: todo == editedTodo }">
         </li>
       </ul>
     </section>
@@ -40,13 +30,13 @@
       </span>
       <ul id="filters">
         <li>
-          <a href="#" ng-class="{ selected: status == '' }">All</a>
+          <a href="#" ng-class="{ selected: status = '' }">All</a>
         </li>
         <li>
-          <a href="#/active" ng-class="{ selected: status == 'active' }">Active</a>
+          <a href="#/active" ng-class="{ selected: status = 'active' }">Active</a>
         </li>
         <li>
-          <a href="#/completed" ng-class="{ selected: status == 'completed' }">Completed</a>
+          <a href="#/completed" ng-class="{ selected: status = 'completed' }">Completed</a>
         </li>
       </ul>
     </footer>
