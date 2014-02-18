@@ -1,16 +1,14 @@
 'use strict';
 
-define(['app'], function (app) {
-  app.factory('todoStorage', function () {
-    var STORAGE_ID = 'todos-angularjs';
+todoapp.factory('todoStorage', function () {
+  var storageKey = 'todo-angularjs';
 
-    return {
-      get: function () {
-        return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
-      },
-      put: function (todos) {
-        localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
-      }
-    };
-  });
+  return {
+    get: function () {
+      return JSON.parse(localStorage.getItem(storageKey) || '[]');
+    },
+    put: function (todos) {
+      localStorage.setItem(storageKey, JSON.stringify(todos));
+    }
+  };
 });

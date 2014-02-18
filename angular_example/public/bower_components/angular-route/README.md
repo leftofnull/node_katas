@@ -1,7 +1,7 @@
-# bower-angular-loader
+# bower-angular-route
 
-This repo is for distribution on `bower`. The source for `angular-loader` is in the
-[main AngularJS repo](https://github.com/angular/angular.js/blob/master/src/loader.js).
+This repo is for distribution on `bower`. The source for this module is in the
+[main AngularJS repo](https://github.com/angular/angular.js/tree/master/src/ngRoute).
 Please file issues and pull requests against that repo.
 
 ## Install
@@ -9,19 +9,25 @@ Please file issues and pull requests against that repo.
 Install with `bower`:
 
 ```shell
-bower install angular-loader
+bower install angular-route
 ```
 
 Add a `<script>` to your `index.html`:
 
 ```html
-<script src="/bower_components/angular-loader/angular-loader.js"></script>
+<script src="/bower_components/angular-route/angular-route.js"></script>
+```
+
+And add `ngRoute` as a dependency for your app:
+
+```javascript
+angular.module('myApp', ['ngRoute']);
 ```
 
 ## Documentation
 
 Documentation is available on the
-[AngularJS docs site](http://docs.angularjs.org/guide/bootstrap).
+[AngularJS docs site](http://docs.angularjs.org/api/ngRoute).
 
 ## License
 

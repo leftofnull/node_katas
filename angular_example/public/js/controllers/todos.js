@@ -1,71 +1,70 @@
 'use strict';
 
-define(['app', 'services/todoStorage'], function (app) {
-  return app.controller('TodoController', ['$scope', '$location', 'todoStorage', 'filterFilter',
-    function TodoController ($scope, $location, todoStorage, filterFilter) {
-      var todos = $scope.todos = todoStorage.get();
-      
-      $scope.newTodo = '';
-      $scope.editedTodo = null;
+todoapp.controller('TodoController',
+  function TodoController ($scope, $routeParams, todoStorage, filterFilter) {
+    var todos = $scope.todos = todoStorage.get();
+    
+    $scope.newTodo = '';
+    $scope.editedTodo = null;
 
-      $scope.$watch('todos', function () {
-        $scope.remainingCount = filterFilter(todos, { completed: false }).length;
-        $scope.doneCount = todos.length - $scope.remainingCount;
-        $scope.allChecked = !$scope.remainingCount;
+    $scope.$watch('todos', function (newTodos, oldTodos) {
+      $scope.remainingCount = filterFilter(todos, { completed: false }).length;
+      $scope.doneCount = todos.length - $scope.remainingCount;
+      $scope.allChecked = !$scope.remainingCount;
+      if (newTodos !== oldTodos)
         todoStorage.put(todos);
-      }, true);
+    }, true);
 
-      if ($location.path() === '') {
-        $location.path('/');
-      }
+    $scope.$on('$routeChangeSuccess', function () {
+      var status = $scope.status = $routeParams.status || '';
 
-      $scope.location = $location;
+      $scope.statusFilter = (status === 'active') ?
+        { completed: false } :
+        (status === 'completed') ?
+        { completed: true } :
+        null;
+    });
+    
+    $scope.addTodo = function () {
+      var newTodo = $scope.newTodo.trim();
+      if (!newTodo.length) return;
 
-      $scope.$watch('location.path()', function (path) {
-        $scope.statusFilter = (path === '/active') ? { completed: false } : (path === '/completed') ? { completed: true } : null;
+      todos.push({
+        title: newTodo,
+        completed: false
       });
 
-      $scope.addTodo = function () {
-        var newTodo = $scope.newTodo.trim();
-        if (!newTodo.length) return;
+      $scope.newTodo = '';
+    };
 
-        todos.push({
-          title: newTodo,
-          completed: false
-        });
+    $scope.editTodo = function (todo) {
+      $scope.editedTodo = todo;
+    };
 
-        $scope.newTodo = '';
-      };
+    $scope.doneEditing = function (todo) {
+      $scope.editedTodo = null;
+      todo.title = todo.title.trim();
 
-      $scope.editTodo = function (todo) {
-        $scope.editedTodo = todo;
-      };
+      if (!todo.title) $scope.removeTodo(todo);
+    };
 
-      $scope.doneEditing = function (todo) {
-        $scope.editedTodo = null;
-        todo.title = todo.title.trim();
+    $scope.cancelEditing = function () {
+      $scope.editedTodo = null;
+    };
 
-        if (!todo.title) $scope.removeTodo(todo);
-      };
+    $scope.removeTodo = function (todo) {
+      todos.splice(todos.indexOf(todo), 1);
+    };
 
-      $scope.cancelEditing = function () {
-        $scope.editedTodo = null;
-      };
+    $scope.clearDoneTodos = function () {
+      $scope.todos = todos = todos.filter(function (val) {
+        return !val.completed;
+      });
+    };
 
-      $scope.removeTodo = function (todo) {
-        todos.splice(todos.indexOf(todo), 1);
-      };
-
-      $scope.clearDoneTodos = function () {
-        $scope.todos = todos = todos.filter(function (val) {
-          return !val.completed;
-        });
-      };
-
-      $scope.markAll = function (done) {
-        todos.forEach(function (todo) {
-          todo.completed = done;
-        });
-      };
-  }]);
+    $scope.markAll = function (done) {
+      todos.forEach(function (todo) {
+        todo.completed = done;
+      });
+    };
 });
