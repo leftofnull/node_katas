@@ -64,7 +64,7 @@ todoapp.controller('TodoController',
 
     $scope.markAll = function (done) {
       todos.forEach(function (todo) {
-        todo.completed = done;
+        todo.completed = !done;
       });
     };
 });
