@@ -7,40 +7,43 @@
   <style>[ng-cloak] { display: none; }</style>
 </head>
 <body ng-app="todoapp">
-  <section id="todoapp" ng-controller="TodoController">
-    <header id="header">
-      <h1>To-Do</h1>
-      <form id="todo-form" ng-submit="addTodo()">
-        <input id="new-todo" placeholder="What needs doing?" ng-model="newTodo" autofocus="autofocus" />
-        <i class="fa fa-arrow-circle-o-right" ng-click="addTodo()"></i>
-      </form>
-    </header>
-    <section id="main" ng-show="todos.length" ng-cloak>
-      <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(!allChecked)" />
-      <label for="toggle-all">Mark all as complete</label>
-      <ul id="todo-list">
-        <li todo-line ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{ completed: todo.completed, editing: todo == editedTodo }">
-        </li>
-      </ul>
+  <div ng-view></div>
+  <script type="text/ng-template" id="todoapp.html">
+    <section id="todoapp" ng-controller="TodoController">
+      <header id="header">
+        <h1>To-Do</h1>
+        <form id="todo-form" ng-submit="addTodo()">
+          <input id="new-todo" placeholder="What needs doing?" ng-model="newTodo" autofocus="autofocus" />
+          <i class="fa fa-arrow-circle-o-right" ng-click="addTodo()"></i>
+        </form>
+      </header>
+      <section id="main" ng-show="todos.length" ng-cloak>
+        <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)" />
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list">
+          <li todo-line ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{ completed: todo.completed, editing: todo == editedTodo }">
+          </li>
+        </ul>
+      </section>
+      <footer id="footer" ng-show="todos.length" ng-cloak>
+        <span id="todo-count">
+          <strong>{{remainingCount}}</strong>
+          <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+        </span>
+        <ul id="filters">
+          <li>
+            <a href="#/" ng-class="{ selected: status == '' }">All</a>
+          </li>
+          <li>
+            <a href="#/active" ng-class="{ selected: status == 'active' }">Active</a>
+          </li>
+          <li>
+            <a href="#/completed" ng-class="{ selected: status == 'completed' }">Completed</a>
+          </li>
+        </ul>
+      </footer>
     </section>
-    <footer id="footer" ng-show="todos.length" ng-cloak>
-      <span id="todo-count">
-        <strong>{{remainingCount}}</strong>
-        <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
-      </span>
-      <ul id="filters">
-        <li>
-          <a href="#" ng-class="{ selected: status = '' }">All</a>
-        </li>
-        <li>
-          <a href="#/active" ng-class="{ selected: status = 'active' }">Active</a>
-        </li>
-        <li>
-          <a href="#/completed" ng-class="{ selected: status = 'completed' }">Completed</a>
-        </li>
-      </ul>
-    </footer>
-  </section>
+  </script>
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
   <script src="/js/app.js"></script>
