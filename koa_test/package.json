@@ -1,0 +1,24 @@
+{
+  "name": "koa_test",
+  "version": "1.0.0",
+  "description": "testing koa",
+  "main": "index.js",
+  "repository": "http://github.com/bit-cmdr/node_katas/tree/master/koa_test",
+  "author": "Alexander Kahoun",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node index"
+  },
+  "dependencies": {
+    "koa": "2.4.1",
+    "koa-body": "2.5.0",
+    "koa-router": "7.3.0"
+  },
+  "devDependencies": {
+    "eslint": "4.16.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.5.0",
+    "prettier": "1.10.2"
+  }
+}

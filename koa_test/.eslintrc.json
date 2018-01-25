@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "extends": ["eslint:recommended", "prettier"],
+  "rules": {
+    "linebreak-style": 0,
+    "semi": ["error", "always"],
+    "no-console": ["error", { "allow": ["error", "info"] }],
+    "prettier/prettier": ["error", { "singleQuote": true }]
+  },
+  "plugins": ["prettier"]
+}
