@@ -4,6 +4,8 @@ const router = require('koa-router')();
 
 module.exports = function people(options) {
   router.post('/', async ctx => {
+    if (!ctx.request.body || !ctx.request.body.name) return (ctx.status = 400);
+
     const highestId = options.people
       .map(p => p.id)
       .sort()
@@ -19,10 +21,13 @@ module.exports = function people(options) {
   router.get('/:id', async ctx => {
     const p = options.people.find(p => p.id === parseInt(ctx.params.id, 10));
     if (!p) return (ctx.status = 404);
+
     ctx.body = p;
   });
 
   router.put('/:id', async ctx => {
+    if (!ctx.request.body || !ctx.request.body.name) return (ctx.status = 400);
+
     options.people.forEach(p => {
       if (p.id === parseInt(ctx.params.id, 10)) p.name = ctx.request.body.name;
     });
@@ -31,6 +36,8 @@ module.exports = function people(options) {
 
   router.delete('/:id', async ctx => {
     const p = options.people.find(p => p.id === parseInt(ctx.params.id, 10));
+    if (!p) return (ctx.status = 202);
+
     options.people.splice(options.people.indexOf(p), 1);
     ctx.status = 200;
   });
