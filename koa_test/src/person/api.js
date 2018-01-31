@@ -11,10 +11,10 @@ module.exports = function people(options) {
       .sort()
       .pop();
 
-    const newPeron = { id: highestId + 1, name: ctx.request.body.name };
-    options.people.push(newPeron);
+    const newPerson = { id: highestId + 1, name: ctx.request.body.name };
+    options.people.push(newPerson);
 
-    ctx.body = newPeron;
+    ctx.body = newPerson;
     ctx.status = 201;
   });
 
