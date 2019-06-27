@@ -16,7 +16,7 @@
     "koa-router": "7.3.0"
   },
   "devDependencies": {
-    "eslint": "4.16.0",
+    "eslint": "4.18.2",
     "eslint-config-prettier": "2.9.0",
     "eslint-plugin-prettier": "2.5.0",
     "prettier": "1.10.2"
